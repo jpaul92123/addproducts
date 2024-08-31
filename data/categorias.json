@@ -1,0 +1,21 @@
+{
+    "polos": [
+        {
+            "imagen": "imeg.jpg",
+            "nombre": "sds",
+            "precio": "14",
+            "descripcion": "sdsds"
+        }
+    ],
+    "poleras": [],
+    "jeans": [],
+    "zapatillas": [],
+    "chompas": [
+        {
+            "imagen": "polos1.png",
+            "nombre": "chompa d eni\u00f1os",
+            "precio": "25",
+            "descripcion": "chompa d eni\u00f1o grnde"
+        }
+    ]
+}
