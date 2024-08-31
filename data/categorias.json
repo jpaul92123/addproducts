@@ -1,21 +1,21 @@
 {
     "polos": [
         {
-            "imagen": "imeg.jpg",
-            "nombre": "sds",
-            "precio": "14",
-            "descripcion": "sdsds"
+            "imagen": "cat-2.jpg",
+            "nombre": "vestido d emujer",
+            "precio": "25",
+            "descripcion": "vestido de mujer blanco de tela 30\/1"
         }
     ],
     "poleras": [],
+    "chompas": [],
     "jeans": [],
-    "zapatillas": [],
-    "chompas": [
+    "zapatillas": [
         {
-            "imagen": "polos1.png",
-            "nombre": "chompa d eni\u00f1os",
-            "precio": "25",
-            "descripcion": "chompa d eni\u00f1o grnde"
+            "imagen": "cat-6.jpg",
+            "nombre": "zapatillas todo terreno",
+            "precio": "112",
+            "descripcion": "zaptillas marrones todo terreno"
         }
     ]
 }
