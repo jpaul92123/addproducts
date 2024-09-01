@@ -1,44 +1,14 @@
 <?php
-include_once 'ProductController.php';
+include_once 'includes/ProductController.php';
 
-// Create a new ProductController object
 $productController = new ProductController();
 
-// Initialize message
-$message = "";
-
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] == 0) {
-        $uploadMessage = $productController->handleImageUpload($_FILES['imagen']);
-        
-        // If the image upload is successful, add the product
-        if (strpos($uploadMessage, 'ha sido subido') !== false) {
-            $imagen = $_FILES['imagen']['name'];
-            $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-            $precio = isset($_POST['precio']) ? $_POST['precio'] : '';
-            $descripcion = isset($_POST['descripcion']) ? $_POST['descripcion'] : '';
-            $categoria = isset($_POST['categoria']) ? $_POST['categoria'] : '';
-
-            if ($nombre && $precio && $descripcion && $categoria) {
-                $message = $productController->addProduct($imagen, $nombre, $precio, $descripcion, $categoria);
-            } else {
-                $message = "Todos los campos son obligatorios.";
-            }
-        } else {
-            $message = $uploadMessage;
-        }
-    }
-}
-
-// Get the list of categories
+// Código para manejar la visualización de productos y filtrado
 $categories = $productController->getCategories();
-
-// Get products by category
 $selectedCategory = isset($_GET['categoria']) ? $_GET['categoria'] : '';
-$products = $productController->getProductsByCategory($selectedCategory);
+$subCategory = isset($_GET['subcategoria']) ? $_GET['subcategoria'] : '';
+$products = $productController->getProductsByCategory($selectedCategory, $subCategory);
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -55,29 +25,45 @@ $products = $productController->getProductsByCategory($selectedCategory);
         .container {
             margin-top: 20px;
         }
+        .product-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .product-item img {
+            margin-right: 10px;
+        }
+        .btn-update, .btn-delete {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="mt-5">Agregar Nuevo Producto</h1>
         <div class="row">
-            <!-- Formulario de Agregar Producto -->
             <div class="col-lg-6 col-md-12">
-                <form method="post" action="" enctype="multipart/form-data">
+                <form method="post" action="public/addProduct.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="categoria">Categoría:</label>
                         <select class="form-control" id="categoria" name="categoria" required>
                             <option value="">Seleccionar categoría</option>
                             <?php foreach ($categories as $category): ?>
-                                <option value="<?php echo htmlspecialchars($category); ?>">
+                                <option value="<?php echo htmlspecialchars($category); ?>" <?php echo ($category == $selectedCategory) ? 'selected' : ''; ?>>
                                     <?php echo htmlspecialchars($category); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="imagen">Imagen:</label>
-                        <input type="file" class="form-control-file" id="imagen" name="imagen" required>
+                        <label for="subcategoria">Subcategoría:</label>
+                        <select class="form-control" id="subcategoria" name="subcategoria" required>
+                            <option value="">Seleccionar subcategoría</option>
+                            <option value="subcat1">Subcategoría 1</option>
+                            <option value="subcat2">Subcategoría 2</option>
+                            <option value="subcat3">Subcategoría 3</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
@@ -91,10 +77,13 @@ $products = $productController->getProductsByCategory($selectedCategory);
                         <label for="descripcion">Descripción:</label>
                         <textarea class="form-control" id="descripcion" name="descripcion" rows="4" required></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="imagen">Imagen:</label>
+                        <input type="file" class="form-control-file" id="imagen" name="imagen" required>
+                    </div>
                     <button type="submit" class="btn btn-primary">Agregar Producto</button>
                 </form>
             </div>
-            <!-- Lista de Productos -->
             <div class="col-lg-6 col-md-12">
                 <h2>Lista de Productos</h2>
                 <div class="form-group">
@@ -108,13 +97,28 @@ $products = $productController->getProductsByCategory($selectedCategory);
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="selectSubCategory">Seleccionar subcategoría:</label>
+                    <select id="selectSubCategory" class="form-control">
+                        <option value="">Seleccionar subcategoría</option>
+                        <option value="subcat1">Subcategoría 1</option>
+                        <option value="subcat2">Subcategoría 2</option>
+                        <option value="subcat3">Subcategoría 3</option>
+                    </select>
+                </div>
                 <ul class="list-group">
-                    <?php foreach ($products as $product): ?>
-                        <li class="list-group-item">
-                            <img src="data/images/<?php echo htmlspecialchars($product['imagen']); ?>" alt="<?php echo htmlspecialchars($product['nombre']); ?>" class="product-image">
-                            <strong><?php echo htmlspecialchars($product['nombre']); ?></strong><br>
-                            Precio: S/ <?php echo htmlspecialchars($product['precio']); ?><br>
-                            Descripción: <?php echo htmlspecialchars($product['descripcion']); ?><br>
+                    <?php foreach ($products as $index => $product): ?>
+                        <li class="list-group-item product-item">
+                            <img src="images/<?php echo htmlspecialchars($product['imagen']); ?>" alt="<?php echo htmlspecialchars($product['nombre']); ?>" class="product-image">
+                            <div>
+                                <strong style="color:brown">S/. <?php echo htmlspecialchars($product['precio']); ?></strong><br>
+                                <strong><?php echo htmlspecialchars($product['nombre']); ?></strong><br>
+                                <p><?php echo htmlspecialchars($product['descripcion']); ?></p>
+                            </div>
+                            <div>
+                                <a href="public/updateProduct.php?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-warning btn-sm btn-update">Actualizar</a>
+                                <a href="public/deleteProduct.php?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm btn-delete">Eliminar</a>
+                            </div>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -122,7 +126,7 @@ $products = $productController->getProductsByCategory($selectedCategory);
         </div>
     </div>
 
-    <!-- Success Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -140,7 +144,9 @@ $products = $productController->getProductsByCategory($selectedCategory);
                 </div>
             </div>
         </div>
-    </div>
+    </div><br>
+
+    <?php include "templates/footer.php" ?>
 
     <!-- Bootstrap and jQuery JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -148,25 +154,19 @@ $products = $productController->getProductsByCategory($selectedCategory);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Show the success modal if there's a message
-        function showSuccessModal() {
-            if ("<?php echo $message; ?>" !== "") {
+        $(document).ready(function() {
+            // Show success modal if message is set
+            <?php if (isset($showModal) && $showModal): ?>
                 $('#successModal').modal('show');
-            }
-        }
+            <?php endif; ?>
 
-        // Handle category selection change
-        document.getElementById('selectCategory').addEventListener('change', function() {
-            var category = this.value;
-            if (category) {
-                window.location.href = '?categoria=' + encodeURIComponent(category);
-            } else {
-                window.location.href = '';
-            }
+            // Handle category and subcategory filtering
+            $('#selectCategory, #selectSubCategory').change(function() {
+                var category = $('#selectCategory').val();
+                var subCategory = $('#selectSubCategory').val();
+                window.location.href = 'index.php?categoria=' + encodeURIComponent(category) + '&subcategoria=' + encodeURIComponent(subCategory);
+            });
         });
-
-        // Show success modal on page load if message is set
-        document.addEventListener('DOMContentLoaded', showSuccessModal);
     </script>
 </body>
 </html>
