@@ -2,16 +2,20 @@
     "polos": {
         "subcat1": [
             {
-                "id": 1,
-                "nombre": "Polera Azul",
-                "precio": "S/50",
-                "descripcion": "Polera azul con estampado.",
-                "categoria": "polos",
-                "subcategoria": "subcat1",
-                "imagen": "polera_azul.jpg"
+                "nombre": "dfdf",
+                "precio": "555",
+                "descripcion": "dfdfd",
+                "imagen": "1.webp"
             }
         ],
-        "subcat2": [],
+        "subcat2": [
+            {
+                "nombre": "ni\u00f1o polo",
+                "precio": "52",
+                "descripcion": "sdsdsdsd",
+                "imagen": "cat-3.jpg"
+            }
+        ],
         "subcat3": []
     },
     "poleras": {

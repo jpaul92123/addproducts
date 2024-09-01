@@ -1,9 +1,9 @@
 <?php
 class ProductController {
-    private $jsonFile = 'data/products.json';
+    private $jsonFile = '../data/products.json';
 
     public function handleImageUpload($file) {
-        $targetDir = 'images/';
+        $targetDir = '../public/images/';
         $targetFile = $targetDir . basename($file["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -20,7 +20,7 @@ class ProductController {
         }
 
         // Allow certain file formats
-        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "webp" && $imageFileType != "jpeg" && $imageFileType != "gif") {
             return "Solo se permiten archivos JPG, JPEG, PNG y GIF.";
         }
 
@@ -105,3 +105,4 @@ class ProductController {
         return "Producto eliminado exitosamente.";
     }
 }
+?>

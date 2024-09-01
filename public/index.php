@@ -44,7 +44,8 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
         <h1 class="mt-5">Agregar Nuevo Producto</h1>
         <div class="row">
             <div class="col-lg-6 col-md-12">
-                <form method="post" action="public/addProduct.php" enctype="multipart/form-data">
+                <form method="post" action="addProduct.php" enctype="multipart/form-data">
+                    <!-- Formulario de agregar producto aquí -->
                     <div class="form-group">
                         <label for="categoria">Categoría:</label>
                         <select class="form-control" id="categoria" name="categoria" required>
@@ -116,8 +117,8 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
                                 <p><?php echo htmlspecialchars($product['descripcion']); ?></p>
                             </div>
                             <div>
-                                <a href="public/updateProduct.php?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-warning btn-sm btn-update">Actualizar</a>
-                                <a href="public/deleteProduct.php?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm btn-delete">Eliminar</a>
+                                <a href="updateProduct.php?categoria=<?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-warning btn-sm btn-update">Actualizar</a>
+                                <a href="deleteProduct.php?categoria=<?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm btn-delete">Eliminar</a>
                             </div>
                         </li>
                     <?php endforeach; ?>
@@ -137,7 +138,7 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?php echo $message; ?>
+                    <?php echo isset($_GET['message']) ? htmlspecialchars($_GET['message']) : ''; ?>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -146,7 +147,7 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
         </div>
     </div><br>
 
-    <?php include "templates/footer.php" ?>
+    <?php include "../templates/footer.php"; ?>
 
     <!-- Bootstrap and jQuery JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -155,12 +156,12 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
 
     <script>
         $(document).ready(function() {
-            // Show success modal if message is set
-            <?php if (isset($showModal) && $showModal): ?>
+            // Mostrar modal de éxito si se establece el mensaje
+            <?php if (isset($_GET['showModal']) && $_GET['showModal'] == 'true'): ?>
                 $('#successModal').modal('show');
             <?php endif; ?>
 
-            // Handle category and subcategory filtering
+            // Manejar el filtrado por categoría y subcategoría
             $('#selectCategory, #selectSubCategory').change(function() {
                 var category = $('#selectCategory').val();
                 var subCategory = $('#selectSubCategory').val();

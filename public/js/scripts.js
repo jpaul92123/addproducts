@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
-    var selectCategory = document.getElementById('selectCategory');
-    var selectSubCategory = document.getElementById('selectSubCategory');
+    var selectCategory = document.getElementById('categoria');
+    var selectSubCategory = document.getElementById('subcategoria');
 
     selectCategory.addEventListener('change', function () {
         var category = this.value;

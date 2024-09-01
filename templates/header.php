@@ -4,17 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos</title>
-    <link href="../css/styles.css" rel="stylesheet">
-    <script src="../js/scripts.js" defer></script>
+    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/css/style.css" rel="stylesheet">
+    <script src="../public/js/scripts.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Gestión de Productos</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Inicio</a></li>
-                <li><a href="addProduct.php">Agregar Producto</a></li>
-                <!-- Agregar más enlaces si es necesario -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Mi Proyecto</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="../public/index.php">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Agregar más enlaces según sea necesario -->
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>

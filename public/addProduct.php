@@ -1,5 +1,5 @@
 <?php
-include_once '../includes/ProductController.php';
+include_once 'includes/ProductController.php';
 
 $productController = new ProductController();
 $message = '';
@@ -15,6 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );
 }
 
-header('Location: ../index.php?showModal=true&message=' . urlencode($message));
+header('Location: index.php?showModal=true&message=' . urlencode($message));
 exit();
 ?>
