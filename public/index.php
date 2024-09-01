@@ -61,9 +61,9 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
                         <label for="subcategoria">Subcategoría:</label>
                         <select class="form-control" id="subcategoria" name="subcategoria" required>
                             <option value="">Seleccionar subcategoría</option>
-                            <option value="subcat1">Subcategoría 1</option>
-                            <option value="subcat2">Subcategoría 2</option>
-                            <option value="subcat3">Subcategoría 3</option>
+                            <option value="subcat1">Niño</option>
+                            <option value="subcat2">Hombre</option>
+                            <option value="subcat3">Mujer</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -102,9 +102,9 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
                     <label for="selectSubCategory">Seleccionar subcategoría:</label>
                     <select id="selectSubCategory" class="form-control">
                         <option value="">Seleccionar subcategoría</option>
-                        <option value="subcat1">Subcategoría 1</option>
-                        <option value="subcat2">Subcategoría 2</option>
-                        <option value="subcat3">Subcategoría 3</option>
+                        <option value="subcat1">Niño</option>
+                        <option value="subcat2">Hombre</option>
+                        <option value="subcat3">Mujer</option>
                     </select>
                 </div>
                 <ul class="list-group">
@@ -117,7 +117,7 @@ $products = $productController->getProductsByCategory($selectedCategory, $subCat
                                 <p><?php echo htmlspecialchars($product['descripcion']); ?></p>
                             </div>
                             <div>
-                                <a href="updateProduct.php?categoria=<?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-warning btn-sm btn-update">Actualizar</a>
+                                <a href="updateForm.php?categoria=<?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-warning btn-sm btn-update">Actualizar</a>
                                 <a href="deleteProduct.php?categoria=<?php echo urlencode($selectedCategory); ?>&subcategoria=<?php echo urlencode($subCategory); ?>&index=<?php echo $index; ?>" class="btn btn-danger btn-sm btn-delete">Eliminar</a>
                             </div>
                         </li>

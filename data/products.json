@@ -2,9 +2,9 @@
     "polos": {
         "subcat1": [
             {
-                "nombre": "dfdf",
-                "precio": "555",
-                "descripcion": "dfdfd",
+                "nombre": "nombre actualizado",
+                "precio": "1000",
+                "descripcion": "probando",
                 "imagen": "1.webp"
             }
         ],
